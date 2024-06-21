@@ -1,0 +1,13 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "- **資料庫**：MySQL - **後端**：Python, Django - **版本控制**：Git",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently 'tailwindcss -i ./src/tailwind/style.css -o ./static/styles/style.css --watch' 'esbuild ./src/input.js --bundle --outfile=./static/output.js --watch'",
+    "build": "tailwindcss -i ./src/tailwind/style.css -o ./static/styles/style.css && esbuild ./src/input.js --minify --bundle --outfile=./static/output.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
