@@ -4,3 +4,4 @@ node_modules/
 *__pycache__/
 token.json
 .DS_Store
+static/output.js
