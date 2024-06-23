@@ -4,10 +4,18 @@
   "description": "- **資料庫**：MySQL - **後端**：Python, Django - **版本控制**：Git",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently 'tailwindcss -i ./src/tailwind/style.css -o ./static/styles/style.css --watch' 'esbuild ./src/input.js --bundle --outfile=./static/output.js --watch'",
-    "build": "tailwindcss -i ./src/tailwind/style.css -o ./static/styles/style.css && esbuild ./src/input.js --minify --bundle --outfile=./static/output.js"
+    "dev": "concurrently 'tailwindcss -i ./src/style.css -o ./static/style.css --watch' 'esbuild ./src/input.js --bundle --outfile=./static/output.js --watch'",
+    "build": "tailwindcss -i ./src/style.css -o ./static/style.css && esbuild ./src/input.js --minify --bundle --outfile=./static/output.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "alpinejs": "^3.14.1",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.21.5"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
+  }
 }
