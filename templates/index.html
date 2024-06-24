@@ -1,16 +1,23 @@
 {% load static %}
 {% block content %}
 <title>5xcamp</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
 <script src="{% static 'output.js' %}" type="module"></script>
 <div>
     <p>powered by
         <a href="https://5xcampus.com/">5xCampus</a>
     </p>
     <h1>台灣銀行代碼查詢</h1>
-    <div>
+    <div x-data="{ placeholder: '請輸入關鍵字或銀行代碼...'}">
         <label for="bank_name">銀行名稱：</label>
-        <input type="text" id="bank_name" name="bank_name" placeholder="請輸入關鍵字或銀行代碼...">
+        <input type="text" id="bank_name" name="bank_name" x-bind:placeholder="placeholder">
         <p>可使用下拉選單或直接輸入關鍵字查詢</p>
+        <select name="bank_name" id="bank_select">
+            {% for bank in banks %}
+            <option value="{{ bank.head_office_code }}">{{ bank.head_office_code }} {{ bank.institution_name }}
+            </option>
+            {% endfor %}
+        </select>
         <label for="branch_name">分行名稱：</label>
         <select name="branch_name" id="branch_name">
             <option value="">請選擇分行名稱</option>
