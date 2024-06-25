@@ -3259,7 +3259,101 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   var src_default = alpine_default;
   var module_default = src_default;
 
+  // src/script.js
+  function bankBranch(banksData) {
+    let banks;
+    try {
+      banks = JSON.parse(banksData);
+    } catch (e) {
+      console.error("\u8CC7\u6599\u932F\u8AA4\uFF1A", e);
+      banks = [];
+    }
+    return {
+      banks,
+      selectedBank: null,
+      showDropdown: false,
+      branches: [],
+      selectedBranch: "",
+      branchDetails: null,
+      copyButton: "\u8907\u88FD\u4EE3\u78BC",
+      copyLinkButton: "\u8907\u88FD\u6B64\u9801\u9762\u9023\u7D50",
+      get displayedBankName() {
+        return this.selectedBank ? `${this.selectedBank.code} ${this.selectedBank.name}` : "";
+      },
+      set displayedBankName(value) {
+        const bank = this.banks.find((bank2) => `${bank2.code} ${bank2.name}` === value);
+        this.selectedBank = bank || null;
+      },
+      get filteredBanks() {
+        const search = this.displayedBankName.toLowerCase();
+        return this.banks.filter(
+          (bank) => bank.name.toLowerCase().includes(search) || bank.code.startsWith(search)
+        );
+      },
+      selectBank(bank) {
+        this.selectedBank = bank;
+        this.showDropdown = false;
+        this.updateBranches();
+      },
+      refreshBankList() {
+        this.showDropdown = true;
+      },
+      updateBranches() {
+        this.branches = [];
+        this.selectedBranch = "";
+        this.branchDetails = null;
+        if (this.selectedBank) {
+          const bankCode = this.selectedBank.code;
+          fetch(`/api/branches/${bankCode}/`).then((response) => response.json()).then((data2) => {
+            this.branches = data2;
+          }).catch((error2) => console.error("\u53D6\u5F97\u5206\u884C\u540D\u7A31\u767C\u751F\u932F\u8AA4\uFF1A", error2));
+        }
+      },
+      updateBranchDetails() {
+        if (!this.selectedBranch) {
+          this.branchDetails = null;
+          return;
+        }
+        const branch = this.branches.find((branch2) => this.selectedBank && branch2.branch_name.replace(this.selectedBank.name, "").trim() === this.selectedBranch);
+        if (branch) {
+          fetch(`/api/branch-detail/${branch.branch_code}/`).then((response) => response.json()).then((data2) => {
+            this.branchDetails = data2;
+          }).catch((error2) => console.error("\u53D6\u5F97\u5206\u884C\u540D\u7A31\u8A73\u7D30\u8CC7\u8A0A\u932F\u8AA4\uFF1A", error2));
+        } else {
+          this.branchDetails = null;
+        }
+      },
+      get cleanBranchName() {
+        return this.selectedBank && this.branchDetails ? this.branchDetails.branch_name.replace(this.selectedBank.name, "").trim() : "";
+      },
+      copyLink() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          this.copyLinkButton = "\u5DF2\u8907\u88FD";
+          setTimeout(() => {
+            this.copyLinkButton = "\u8907\u88FD\u6B64\u9801\u9762\u9023\u7D50";
+          }, 1e3);
+        }).catch((err) => {
+          console.error("\u9801\u9762\u9023\u7D50\u8907\u88FD\u5931\u6557: ", err);
+        });
+      },
+      copyCode() {
+        if (this.branchDetails && this.branchDetails.branch_code) {
+          navigator.clipboard.writeText(this.branchDetails.branch_code).then(() => {
+            this.copyButton = "\u5DF2\u8907\u88FD";
+            setTimeout(() => {
+              this.copyButton = "\u8907\u88FD\u4EE3\u78BC";
+            }, 1e3);
+          }).catch((error2) => {
+            console.error("\u5206\u884C\u4EE3\u78BC\u8907\u88FD\u5931\u6557\uFF01\uFF01\uFF01", error2);
+          });
+        }
+      }
+    };
+  }
+
   // src/input.js
   window.Alpine = module_default;
+  module_default.data("bankBranch", bankBranch);
   module_default.start();
 })();
