@@ -2,7 +2,7 @@
 這是一個台灣銀行代碼查詢的工具，主要用途為快速查詢各家銀行代碼後顯示各詳細內容，且能夠複製分行代碼和頁面的URL。
 
 ## 網站連結
-
+https://bank-branch.zeabur.app/
 
 ## 技術使用
 - **前端**：HTML, Tailwind CSS, Alpine.js
