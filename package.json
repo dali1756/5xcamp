@@ -4,8 +4,8 @@
   "description": "- **資料庫**：MySQL - **後端**：Python, Django - **版本控制**：Git",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently 'tailwindcss -i ./src/style.css -o ./static/style.css --watch' 'esbuild ./src/input.js --bundle --outfile=./static/output.js --watch'",
-    "build": "tailwindcss -i ./src/style.css -o ./static/style.css && esbuild ./src/input.js --minify --bundle --outfile=./static/output.js"
+    "dev": "concurrently 'tailwindcss -i ./src/style.css -o ./static/style.css --watch' 'esbuild ./src/index.js --bundle --outfile=./static/output.js --watch'",
+    "build": "tailwindcss -i ./src/style.css -o ./static/style.css && esbuild ./src/index.js --minify --bundle --outfile=./static/output.js"
   },
   "keywords": [],
   "author": "",

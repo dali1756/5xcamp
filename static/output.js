@@ -3362,7 +3362,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     };
   }
 
-  // src/input.js
+  // src/index.js
   window.Alpine = module_default;
   module_default.data("bankBranch", bankBranch);
   module_default.start();
