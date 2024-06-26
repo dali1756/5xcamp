@@ -8,4 +8,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("api/branches/<str:bank_code>/", views.get_branches, name="get_branches"),
     path("api/branch-detail/<str:branch_code>/", views.get_branch_detail, name="get_branch_detail"),
+    path("<str:bank_code>/<str:branch_code>/<str:branch_name>.html", views.branch_page, name="branch_page"),
 ]

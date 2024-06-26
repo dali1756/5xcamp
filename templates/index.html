@@ -3,21 +3,21 @@
 <title>5xcamp</title>
 <link rel="stylesheet" href="{% static 'style.css' %}">
 <script src="{% static 'output.js' %}" type="module"></script>
-<div x-data="bankBranch('{{ banks_json|escapejs }}')" class="container mx-auto mt-10 p-6 bg-white rounded shadow">
+<div x-data="bankBranch('{{ banks_json|escapejs }}', '{{ branch_detail|default:'null'|escapejs }}')"
+    class="container mx-auto mt-10 p-6 bg-white rounded shadow">
     <p class="text-gray-500 text-sm">powered by
         <a href="https://5xcampus.com/" class="text-gray-500 no-underline">5xCampus</a>
     </p>
     <h1 class="text-2xl font-bold mb-4">台灣銀行代碼查詢</h1>
     <div class="mb-6">
         <div class="flex mb-4 space-x-4">
-            <span>
+            <span @click.away="hideDropdown">
                 <label for="bank_name" class="block text-gray-700 font-medium">銀行名稱：</label>
                 <div class="relative">
-                    <input x-model="displayedBankName" @input="refreshBankList" @focus="refreshBankList"
-                        @keydown.escape="showDropdown = false" name="bank_name" id="bank_input"
-                        placeholder="請輸入關鍵字或銀行代碼..."
+                    <input x-model="displayedBankName" @input="refreshBankList" @focus="showAllBanks" name="bank_name"
+                        id="bank_input" placeholder="請輸入關鍵字或銀行代碼..."
                         class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <div x-show="showDropdown"
+                    <div x-show="showDropdown" x-cloak
                         class="absolute w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-10">
                         <template x-for="bank in filteredBanks" x-bind:key="bank.code">
                             <p @click="selectBank(bank)" class="p-2 hover:bg-gray-100 cursor-pointer"
@@ -27,18 +27,20 @@
                 </div>
                 <p class="text-gray-500 text-sm mt-1">可使用下拉選單或直接輸入關鍵字查詢</p>
             </span>
-            <span>
+            <span @click.away="hideBranchDropdown">
                 <label for="branch_name" class="block text-gray-700 font-medium">分行名稱：</label>
-                <input list="branches" x-model="selectedBranch" @input="updateBranchDetails" name="branch_name"
-                    id="branch_input" placeholder="請選擇分行名稱..." x-bind:disabled="!selectedBank"
-                    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                <datalist id="branches">
-                    <template x-for="branch in branches" x-bind:key="branch.branch_code">
-                        <option
-                            x-bind:value="selectedBank ? branch.branch_name.replace(selectedBank.name, '').trim() : branch.branch_name">
-                        </option>
-                    </template>
-                </datalist>
+                <div class="relative">
+                    <input x-model="displayedBranchName" @input="refreshBranchList" @focus="showAllBranches"
+                        name="branch_name" id="branch_input" placeholder="請選擇分行名稱..." x-bind:disabled="!selectedBank"
+                        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div x-show="showBranchDropdown" x-cloak
+                        class="absolute w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-10">
+                        <template x-for="branch in filteredBranches" x-bind:key="branch.branch_code">
+                            <p @click="selectBranch(branch)" class="p-2 hover:bg-gray-100 cursor-pointer"
+                                x-text="branch.branch_name.replace(selectedBank.name, '').trim()"></p>
+                        </template>
+                    </div>
+                </div>
             </span>
         </div>
     </div>
