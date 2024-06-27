@@ -19,8 +19,8 @@ SECRET_KEY = 'django-insecure-r20+fasltzl+w5j58y*-rqguwl+=pm2xg-*b5@p7#&obe-gl!e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env"))
-ALLOWED_HOSTS = [os.getenv("ALLOWED_HOST", "bank-branch.zeabur.app")]
+
+ALLOWED_HOSTS = ["bank-branch.zeabur.app"]
 
 
 # Application definition
