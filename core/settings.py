@@ -19,8 +19,8 @@ SECRET_KEY = 'django-insecure-r20+fasltzl+w5j58y*-rqguwl+=pm2xg-*b5@p7#&obe-gl!e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ["*"]
 
-ALLOWED_HOSTS = ["bank-branch.zeabur.app"]
 
 
 # Application definition
