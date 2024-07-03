@@ -9,7 +9,7 @@ export function bankBranch(banksJson, initialBranchDetail) {
         displayedBranchName: "",
         filteredBranches: [],
         showBranchDropdown: false,
-        selectedBranch: branchDetail ? branchDetail.branch_name.replace(branchDetail.bank_name, '').trim() : "",
+        selectedBranch: branchDetail ? branchDetail.branch_name.replace(branchDetail.bank_name, "").trim() : "",
         branches: [],
         branchDetails: branchDetail,
         copyButton: "複製代碼",
