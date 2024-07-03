@@ -87,7 +87,7 @@ export function bankBranch(banksJson, initialBranchDetail) {
                 const response = await fetch(`/api/branch-detail/${branch.branch_code}/`);
                 this.branchDetails = await response.json();
                 this.cleanBranchName = this.branchDetails.branch_name.replace(this.branchDetails.bank_name, "").trim();
-                const newURL = `/${this.branchDetails.bank_code}/${this.branchDetails.branch_code}/${this.branchDetails.bank_name}-${this.cleanBranchName}.html`;
+                const newURL = `${window.location.origin}/${this.branchDetails.bank_code}/${this.branchDetails.branch_code}/${this.branchDetails.bank_name}-${this.cleanBranchName}.html`;
                 history.replaceState({}, "", newURL);
             }
         },
