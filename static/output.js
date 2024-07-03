@@ -3339,7 +3339,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
           const response = await fetch(`/api/branch-detail/${branch.branch_code}/`);
           this.branchDetails = await response.json();
           this.cleanBranchName = this.branchDetails.branch_name.replace(this.branchDetails.bank_name, "").trim();
-          history.pushState({}, "", `${this.branchDetails.bank_code}/${this.branchDetails.branch_code}/${this.branchDetails.bank_name}-${this.cleanBranchName}.html`);
+          const newURL = `/${this.branchDetails.bank_code}/${this.branchDetails.branch_code}/${this.branchDetails.bank_name}-${this.cleanBranchName}.html`;
+          history.replaceState({}, "", newURL);
         }
       },
       copyCode() {
@@ -3351,7 +3352,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         });
       },
       copyLink() {
-        const url = `${window.location.origin}/${this.branchDetails.bank_code}/${this.branchDetails.branch_code}/${this.branchDetails.bank_name}-${this.cleanBranchName}.html`;
+        const url = window.location.href;
         navigator.clipboard.writeText(url).then(() => {
           this.copyLinkButton = "\u5DF2\u8907\u88FD";
           setTimeout(() => {
