@@ -1,4 +1,4 @@
-![Video Title](https://youtu.be/Vf_pxvNLb6g)
+作品展示：https://youtu.be/Vf_pxvNLb6g
 ## 專案特點
 這是一個台灣銀行代碼查詢工具，主要用途為快速查詢各家銀行代碼後顯示各詳細內容，且能夠複製分行代碼和頁面的URL。
 
